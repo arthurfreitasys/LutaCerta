@@ -1,7 +1,6 @@
 package com.lab.jpa.gestaoufc.domain.model;
 import com.lab.jpa.gestaoufc.domain.enums.CategoriaPeso;
 import com.lab.jpa.gestaoufc.domain.enums.ResultadoLuta;
-import com.lab.jpa.gestaoufc.domain.model.*;
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -18,7 +17,6 @@ import java.util.UUID;
 public class Luta {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @EqualsAndHashCode.Include
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,16 +24,16 @@ public class Luta {
     private Evento evento;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lutador1_id")
+    @JoinColumn(name = "lutador1_id", nullable = false)
     private Lutador lutador1;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lutador2_id")
+    @JoinColumn(name = "lutador2_id", nullable = false)
     private Lutador lutador2;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,name = "resultado")
-    private ResultadoLuta resultado;
+    @Column(name = "resultado")
+    private ResultadoLuta resultadoLuta;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "categoria")

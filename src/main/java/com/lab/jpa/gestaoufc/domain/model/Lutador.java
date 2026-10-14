@@ -16,7 +16,6 @@ import java.util.UUID;
 public class Lutador {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @EqualsAndHashCode.Include
     private UUID id;
 
     @Column(nullable = false)
@@ -30,13 +29,13 @@ public class Lutador {
     private CategoriaPeso categoriaPeso;
 
     @Column(nullable = false)
-    private Integer vitorias = 0;
+    private Integer vitorias;
 
     @Column(nullable = false)
-    private Integer derrotas = 0;
+    private Integer derrotas;
 
     @Column(nullable = false)
-    private Integer empates = 0;
+    private Integer empates;
 
     @Column(nullable = false, length = 250)
     private String paisOrigem;
