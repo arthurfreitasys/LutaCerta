@@ -28,6 +28,6 @@ public class Evento {
     @Column(nullable = false)
     private String localEvento; //Exemplo: Arena Madison Square Garden
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "evento")
     private List<Luta> lutas;
 }

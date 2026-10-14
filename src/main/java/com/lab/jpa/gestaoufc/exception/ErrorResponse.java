@@ -8,7 +8,7 @@ public record ErrorResponse(
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd MM-yyyy'T'HH:mm:ss")
         LocalDateTime timestamp,
         int status,
-        String erros,
+        String error,
         Object message,
         String path
 ) {
