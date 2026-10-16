@@ -29,12 +29,12 @@ public class LutaService {
 
     private Evento buscarEvento(UUID id){
         return eventoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado o evento"));
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado o evento pelo ID "+id));
     }
 
     private Lutador buscarLutador(UUID id){
         return lutadorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado o lutador"));
+                .orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado o lutador pelo ID "+id));
     }
 
     @Transactional(readOnly = true)
@@ -62,7 +62,7 @@ public class LutaService {
     public LutaResponseDTO buscarLutaPorID(UUID id){
         Luta luta = lutaRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Luta não encontrada"));
+                        new ResourceNotFoundException("Luta não encontrada pelo ID "+id));
                 return lutaMapper.toDTO(luta);
     }
 
@@ -70,7 +70,7 @@ public class LutaService {
     public LutaResponseDTO atualizarLuta(UUID id, LutaRequestDTO dto){
         Luta luta = lutaRepository.findById(id)
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("Luta não encontrada"));
+                        new ResourceNotFoundException("Luta não encontrada pelo ID "+id));
         Evento evento = buscarEvento(dto.eventoID());
         Lutador lutador1 = buscarLutador(dto.lutador1ID());
         Lutador lutador2 = buscarLutador(dto.lutador2ID());
