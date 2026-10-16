@@ -32,7 +32,7 @@ public class Luta {
     private Lutador lutador2;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "resultado")
+    @Column(name = "resultadoLuta")
     private ResultadoLuta resultadoLuta;
 
     @Enumerated(EnumType.STRING)
