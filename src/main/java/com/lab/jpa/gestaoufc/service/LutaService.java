@@ -5,6 +5,7 @@ import com.lab.jpa.gestaoufc.domain.model.Luta;
 import com.lab.jpa.gestaoufc.domain.model.Lutador;
 import com.lab.jpa.gestaoufc.dto.LutaRequestDTO;
 import com.lab.jpa.gestaoufc.dto.LutaResponseDTO;
+import com.lab.jpa.gestaoufc.exception.RegraDeNegocioException;
 import com.lab.jpa.gestaoufc.exception.ResourceNotFoundException;
 import com.lab.jpa.gestaoufc.mapper.LutaMapper;
 import com.lab.jpa.gestaoufc.repository.EventoRepository;
@@ -47,6 +48,11 @@ public class LutaService {
         Evento evento = buscarEvento(dto.eventoID());
         Lutador lutador1 = buscarLutador(dto.lutador1ID());
         Lutador lutador2 = buscarLutador(dto.lutador2ID());
+
+        if (lutador1.getId().equals(lutador2.getId())){
+            throw new RegraDeNegocioException(
+                    "Lutadores não podem ser iguais");
+        }
 
         Luta luta = new Luta();
         luta.setEvento(evento);
