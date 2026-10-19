@@ -3,8 +3,10 @@ package com.lab.jpa.gestaoufc.service;
 import com.lab.jpa.gestaoufc.domain.model.Lutador;
 import com.lab.jpa.gestaoufc.dto.LutadorRequestDTO;
 import com.lab.jpa.gestaoufc.dto.LutadorResponseDTO;
+import com.lab.jpa.gestaoufc.exception.RegraDeNegocioException;
 import com.lab.jpa.gestaoufc.exception.ResourceNotFoundException;
 import com.lab.jpa.gestaoufc.mapper.LutadorMapper;
+import com.lab.jpa.gestaoufc.repository.LutaRepository;
 import com.lab.jpa.gestaoufc.repository.LutadorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ public class LutadorService {
 
     private final LutadorRepository repository; //usado pra conversar com o banco
     private final LutadorMapper mapper;
+    private final LutaRepository lutaRepository;
     //final garante que depois de criado o server
 
     @Transactional(readOnly = true)
@@ -57,6 +60,9 @@ public class LutadorService {
         if (!repository.existsById(id)){
             throw new ResourceNotFoundException(
                     "Lutador não encontrado pelo ID: "+id);
+        }
+        if (lutaRepository.existsByLutador1IdOrLutador2Id(id, id)) {
+            throw new RegraDeNegocioException("Não é possível remover um lutador que já participou de lutas/eventos");
         }
         repository.deleteById(id);
     }
